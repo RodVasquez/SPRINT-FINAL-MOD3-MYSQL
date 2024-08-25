@@ -40,12 +40,32 @@ CREATE TABLE IF NOT EXISTS productos (
 );
 
 -- 4. Insertar datos en la tabla proveedores
+
+START TRANSACTION;
+
 INSERT INTO proveedores (nombre_representante, nombre_corporativo, telefono1, nombre_contacto1, telefono2, nombre_contacto2, categoria_producto, correo_electronico) VALUES
 ('Juan Pérez', 'Proveedores SA', '555-1234', 'Ana Ruiz', '555-5678', 'Luis Gómez', 'Electrónica', 'factura@proveedorsa.com'),
 ('Laura Martínez', 'Tecnología Ltda', '555-8765', 'Pedro Díaz', NULL, NULL, 'Informática', 'factura@tecnologialtda.com'),
 ('Carlos Sánchez', 'Moda y Estilo', '555-4321', 'María López', '555-6789', 'Julio Torres', 'Ropa', 'factura@modaestilo.com'),
 ('Sofía Gómez', 'ElectroWorld', '555-1111', 'Luis Pérez', '555-2222', 'Nina Fernández', 'Electrodomésticos', 'factura@electroworld.com'),
 ('Alejandro Torres', 'Hogar y Más', '555-3333', 'Andrea Martínez', NULL, NULL, 'Muebles', 'factura@hogarymas.com');
+
+SELECT * FROM proveedores;
+
+update proveedores
+set nombre_representante = 'alejandrita torres'
+WHERE id = 5;
+
+INSERT INTO proveedores (nombre_representante, nombre_corporativo, telefono1, nombre_contacto1, telefono2, nombre_contacto2, categoria_producto, correo_electronico) VALUES
+('Rodrigo Vasquez', 'Proveedores a eliminar SA', '555-1234', 'anabrita ', '555-5678', 'luis guitierrez', 'Electrónica', 'factura@proveedoraeliminarsa.com');  -- agregamos un nuevo proveedor
+
+delete FROM proveedores
+where id = 6; -- eliminamos el proveedor creado
+
+ROLLBACK; -- deshacemos la eliminacion realizada
+
+COMMIT; --  Nos aseguramos que la transaccion es valida
+
 
 -- 5. Insertar datos en la tabla clientes
 INSERT INTO clientes (nombre, apellido, direccion) VALUES
